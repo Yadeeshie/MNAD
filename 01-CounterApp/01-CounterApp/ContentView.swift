@@ -8,27 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var count: Int = 0
+    @State private var viewModel = CounterViewModel()
     
     var body: some View {
         VStack(spacing: 20) {
             Text("Counter App 🧮")
                 .font(.largeTitle)
                 .bold()
-            Text ("Count is: \(count)")
+            Text ("Count is: \(viewModel.count)")
                 .font(.system(size: 25))
                 .italic()
             
-            HStack {
+            Text(viewModel.message)
+                .foregroundStyle(.gray)
+                .font(.headline)
+            
+            HStack(spacing:20) {
                 Button("-") {
-                    count -= 1
+                    viewModel.decrement()
                 }
                 .font(.largeTitle)
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
                 
                 Button("+"){
-                    count += 1
+                    viewModel.incremnent()
                 }
                 .font(.largeTitle)
                 .buttonStyle(.borderedProminent)
@@ -38,7 +42,7 @@ struct ContentView: View {
             .padding()
             
             Button("Reset"){
-                count = 0
+                viewModel.reset()
             }
             .font(.system(size: 20))
             .buttonStyle(.borderedProminent)
