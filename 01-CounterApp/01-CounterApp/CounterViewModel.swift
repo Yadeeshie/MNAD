@@ -6,12 +6,13 @@
 //
 
 import Observation
+import SwiftUI
 
 @Observable
 class CounterViewModel {
     
-    var count = 0
-    var message: String = ""
+    @AppStorage("countValue") private var count = 0
+    private var message: String = ""
     
     let maxLimit = 10
     let minLimit = 0
