@@ -9,6 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var count: Int = 0
+    @State private var message: String = ""
+    
+    let maxLimit = 10
+    let minLimit = 0
     
     var body: some View {
         VStack(spacing: 20) {
@@ -19,16 +23,30 @@ struct ContentView: View {
                 .font(.system(size: 25))
                 .italic()
             
-            HStack {
+            Text(message)
+                .foregroundStyle(.gray)
+                .font(.headline)
+            
+            HStack(spacing:20) {
                 Button("-") {
-                    count -= 1
+                    if count > minLimit {
+                        count -= 1
+                        message = ""
+                    } else {
+                        message = "Can't go down below zero 😱"
+                    }
                 }
                 .font(.largeTitle)
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
                 
                 Button("+"){
-                    count += 1
+                    if count < maxLimit {
+                        count += 1
+                        message = ""
+                    } else {
+                        message = "Can't go above ten 😱"
+                    }
                 }
                 .font(.largeTitle)
                 .buttonStyle(.borderedProminent)
@@ -39,6 +57,7 @@ struct ContentView: View {
             
             Button("Reset"){
                 count = 0
+                message = ""
             }
             .font(.system(size: 20))
             .buttonStyle(.borderedProminent)
