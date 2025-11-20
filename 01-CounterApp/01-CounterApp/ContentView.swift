@@ -8,45 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var count: Int = 0
-    @State private var message: String = ""
-    
-    let maxLimit = 10
-    let minLimit = 0
+    @State private var viewModel = CounterViewModel()
     
     var body: some View {
         VStack(spacing: 20) {
             Text("Counter App 🧮")
                 .font(.largeTitle)
                 .bold()
-            Text ("Count is: \(count)")
+            Text ("Count is: \(viewModel.count)")
                 .font(.system(size: 25))
                 .italic()
             
-            Text(message)
+            Text(viewModel.message)
                 .foregroundStyle(.gray)
                 .font(.headline)
             
             HStack(spacing:20) {
                 Button("-") {
-                    if count > minLimit {
-                        count -= 1
-                        message = ""
-                    } else {
-                        message = "Can't go down below zero 😱"
-                    }
+                    viewModel.decrement()
                 }
                 .font(.largeTitle)
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
                 
                 Button("+"){
-                    if count < maxLimit {
-                        count += 1
-                        message = ""
-                    } else {
-                        message = "Can't go above ten 😱"
-                    }
+                    viewModel.incremnent()
                 }
                 .font(.largeTitle)
                 .buttonStyle(.borderedProminent)
@@ -56,8 +42,7 @@ struct ContentView: View {
             .padding()
             
             Button("Reset"){
-                count = 0
-                message = ""
+                viewModel.reset()
             }
             .font(.system(size: 20))
             .buttonStyle(.borderedProminent)
